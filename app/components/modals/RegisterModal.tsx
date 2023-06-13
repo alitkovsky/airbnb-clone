@@ -11,6 +11,7 @@ import {
 } from 'react-hook-form';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
@@ -18,8 +19,10 @@ import { toast } from 'react-hot-toast';
 import Button from '../Button';
 import { signIn } from 'next-auth/react';
 
+
 const RegisterModal = () => {
-   const RegisterModal = useRegisterModal();
+   const registerModal = useRegisterModal();
+   const loginModal = useLoginModal();
    const [isLoading, setIsLoading] = useState(false);
 
    const {
@@ -39,7 +42,7 @@ const RegisterModal = () => {
 
       axious.post('/api/register', data)
          .then(() => {
-            RegisterModal.onClose();
+            registerModal.onClose();
          })
          .catch((error) => {
             toast.error('Something went wrong.');
@@ -48,6 +51,11 @@ const RegisterModal = () => {
             setIsLoading(false);
          });
    };
+
+   const toggle = useCallback(() => {
+      registerModal.onClose();
+      loginModal.onOpen();
+   }, [loginModal, registerModal]);
 
    const bodyContet = (
       <div className="flex flex-col gap-4">
@@ -111,7 +119,7 @@ const RegisterModal = () => {
                   Already have an account?
                </div>
                <div
-                  onClick={RegisterModal.onClose}
+                  onClick={toggle}
                   className="
                      text-netural-800
                      cursor-pointer
@@ -128,10 +136,10 @@ const RegisterModal = () => {
    return ( 
       <Modal
          disabled={isLoading}
-         isOpen={RegisterModal.isOpen}
+         isOpen={registerModal.isOpen}
          title="Register on Airbnb"
          actionLabel="Continue"
-         onClose={RegisterModal.onClose}
+         onClose={registerModal.onClose}
          onSubmit={handleSubmit(onSubmit)} // validation
          body={bodyContet}
          footer={footerContent}

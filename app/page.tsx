@@ -15,7 +15,7 @@ export default async function Home() {
       <ClientOnly>
         <EmptyState showReset />
       </ClientOnly>
-    )
+    );
   }
   
   return (

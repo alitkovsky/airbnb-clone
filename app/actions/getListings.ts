@@ -9,7 +9,7 @@ export default async function getListings() {
          });
 
       const SafeListing = listings.map((listing) => ({
-         ... listing,
+         ...listing,
          createdAt: listing.createdAt.toISOString(),
       }));
 

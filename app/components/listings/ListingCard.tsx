@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import useCountries from "@/app/hooks/useCountries";
 
 import { SafeListing, SafeUser } from "@/app/types";
-import { Listing, Reservation } from "@prisma/client";
+import { Reservation } from "@prisma/client";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
 
